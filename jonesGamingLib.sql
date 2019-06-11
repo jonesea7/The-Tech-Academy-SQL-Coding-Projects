@@ -2,68 +2,113 @@ CREATE DATABASE jones_game_lib;
 
 /*======  CREATE MANUFACTURER TABLE ID(100)======*/
 
-	/*======  INSERT NINTENDO, MS, SONY, SEGA AS VALUES ======*/
-
-/*======  CREATE CONSOLE TABLE ID(200) ======*/
-
-CREATE TABLE tbl_console (
-	console_id INT PRIMARY KEY not null IDENTITY (200,1),
-	console_name varchar(10)
+CREATE TABLE tbl_mfr (
+	mfr_id INT PRIMARY KEY not null IDENTITY (100,1),
+	mfr_name VARCHAR(15) NOT NULL
 );
-	
 
-	/*======  VALUES WILL BE ALL THE SYSTEMS OVER THE YEARS FOR EACH MFG ======*/
-	con_nes
-	con_snes
-	con_n64
-	con_gc
-	con_wii
-	con_wU
-	con_swtch
-	con_xb
-	con_xb360
-	con_xb1
-	con_psx
-	con_ps2
-	con_ps3
-	con_ps4
-	con_gen
-	con_cd
+INSERT INTO tbl_mfr
+	(mfr_name)
+	VALUES
+	('Nintendo'),
+	('Microsoft'),
+	('Sony'),
+	('Sega')
+;
 
-/*======  CREATE GENRE TABLE ID(300) ======*/
+/*======  CREATE CONSOLE TABLE ID(200)======*/
+
+CREATE TABLE tbl_console(
+	console_id INT PRIMARY KEY NOT NULL IDENTITY (200,1),
+	console_mfr INT CONSTRAINT fk_console_mfr FOREIGN KEY REFERENCES tbl_mfr(mfr_id) ON UPDATE CASCADE ON DELETE CASCADE,
+	console_name VARCHAR(20) NOT NULL
+);
+	/*======  INSERT SYSTEMS OVER THE YEARS AS VALUES ======*/
+
+INSERT INTO tbl_console
+	(console_mfr, console_name)
+	VALUES
+	(100, 'NES'),
+	(100, 'SNES'),
+	(100, 'N64'),
+	(100, 'GC'),
+	(100, 'Wii'),
+	(100, 'WiiU'),
+	(100, 'Switch'),
+	(101, 'xb'),
+	(101, 'xb360'),
+	(101, 'xb1'),
+	(102, 'psx'),
+	(102, 'ps2'),
+	(102, 'ps3'),
+	(102, 'ps4'),
+	(102, 'psp'),
+	(102, 'psvita'),
+	(102, 'psvr'),
+	(103, 'genesis'),
+	(103, 'cd'),
+	(103, 'saturn'),
+	(103, 'dreamcast')
+;
+
+SELECT * FROM tbl_console;
+
+/*======  CREATE GENRE TABLE ID (200) ======*/
 
 CREATE TABLE tbl_genre (
-	genre_id INT PRIMARY KEY not null IDENTITY (300,1)
-	genre_fps
-	genre_srpg
-	genre_jrpg
-	genre_wrpg
-	genre_sports
-	genre_fighting
-	genre_coop
-	genre_pltfrm
-	genre_oldskl
-	genre_racing
+	genre_id INT PRIMARY KEY not null IDENTITY (200,1),
+	genre_type VARCHAR(15) NOT NULL
 );
-	/*======  VALUES: ABBREVIATED WORDS OF THE GENRES (4 letters or less?) ======*/
 
-/*======  CREATE ESRB RATING TABLE ID(400) ======*/
+/*======  VALUES: ABBREVIATED WORDS OF THE GENRES (6 letters or less?) ======*/
+INSERT INTO tbl_genre
+	(genre_type)
+	VALUES
+	('FPS'),
+	('SRPG'),
+	('JRPG'),
+	('WRPG'),
+	('SPRT'),
+	('FGHT'),
+	('COOP'),
+	('PLTFRM'),
+	('OLDSKL'),
+	('RACE')
+;
+
+/*======  CREATE ESRB RATING TABLE ID(300) ======*/
+
+CREATE TABLE tbl_esrb (
+	esrb_id INT PRIMARY KEY NOT NULL IDENTITY (300,10),
+	esrb_rating VARCHAR(5) NOT NULL
+);
 
 	/*======  VALUES: eC E E+10 T M Ao ======*/
 
-/*======  CREATE GAME INFORMER SCORE TABLE ID(500) ======*/
+INSERT INTO tbl_esrb
+	(esrb_rating)
+	VALUES
+	('eC'),
+	('E'),
+	('E+10'),
+	('T'),
+	('M'),
+	('Ao')
+;
+
+/*======  CREATE GAME INFORMER SCORE TABLE ID(400) ======*/
 
 	/*======  VALUES: 1/10 - 10/10 ======*/
 
-/*======  CREATE FAMILY SCORE TABLE ID(600) 10/10 SCALE ======*/
+/*======  CREATE FAMILY SCORE TABLE ID(500) 10/10 SCALE ======*/
 
 	/*======  VALUES: 1/10 - 10/10 ======*/
 
-/*======  CREATE PUBLISHER TABLE ID(700) ======*/
+/*======  CREATE PUBLISHER TABLE ID(600) ======*/
 
 	/*======  VALUES: SONY, SEGA, ATLUS, ETC. ======*/
 
-/*======  CREATE DEVELOPER TABLE ID(800) ======*/
+/*======  CREATE DEVELOPER TABLE ID(700) ======*/
 
 	/*======  VALUES: i.e. INSOMNIAC, NINTENDO, NAUGHTY DOG, ETC. ======*/
 
@@ -88,16 +133,7 @@ CREATE TABLE tbl_titles (
 
 
 
-/*====== CREATE TABLE FOR MFG ======*/
 
-CREATE TABLE tbl_con_mfg (
-	con_mfg_id INT PRIMARY KEY not null IDENTITY (100,1),
-	Nintendo,
-	Microsoft,
-	Sony,
-	Sega,
-
-);
 
 
 
