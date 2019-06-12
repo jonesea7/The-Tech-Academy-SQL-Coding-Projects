@@ -1,14 +1,14 @@
-CREATE DATABASE jones_game_lib;
+ CREATE DATABASE jones_game_lib;
 
 /*======  CREATE MANUFACTURER TABLE ID(100)======*/
 
-CREATE TABLE tbl_mfr (
-	mfr_id INT PRIMARY KEY not null IDENTITY (100,1),
-	mfr_name VARCHAR(15) NOT NULL
+CREATE TABLE MANUFACTURER (
+	mfrID INT PRIMARY KEY not null IDENTITY (100,1),
+	mfrName VARCHAR(30) NOT NULL
 );
 
-INSERT INTO tbl_mfr
-	(mfr_name)
+INSERT INTO MANUFACTURER
+	(mfrName)
 	VALUES
 	('Nintendo'),
 	('Microsoft'),
@@ -18,15 +18,15 @@ INSERT INTO tbl_mfr
 
 /*======  CREATE CONSOLE TABLE ID(200)======*/
 
-CREATE TABLE tbl_console(
-	console_id INT PRIMARY KEY NOT NULL IDENTITY (200,1),
-	console_mfr INT CONSTRAINT fk_console_mfr FOREIGN KEY REFERENCES tbl_mfr(mfr_id) ON UPDATE CASCADE ON DELETE CASCADE,
-	console_name VARCHAR(20) NOT NULL
+CREATE TABLE CONSOLE(
+	consoleID INT PRIMARY KEY NOT NULL IDENTITY (200,1),
+	consoleMfr INT CONSTRAINT fk_console_mfr FOREIGN KEY REFERENCES MANUFACTURER(mfrName) ON UPDATE CASCADE ON DELETE CASCADE,
+	consoleName VARCHAR(20) NOT NULL
 );
 	/*======  INSERT SYSTEMS OVER THE YEARS AS VALUES ======*/
 
-INSERT INTO tbl_console
-	(console_mfr, console_name)
+INSERT INTO CONSOLE
+	(consoleMfr, consoleName)
 	VALUES
 	(100, 'NES'),
 	(100, 'SNES'),
@@ -55,14 +55,14 @@ SELECT * FROM tbl_console;
 
 /*======  CREATE GENRE TABLE ID (200) ======*/
 
-CREATE TABLE tbl_genre (
-	genre_id INT PRIMARY KEY not null IDENTITY (200,1),
-	genre_type VARCHAR(15) NOT NULL
+CREATE TABLE GENRE (
+	genreID INT PRIMARY KEY not null IDENTITY (200,1),
+	genreType VARCHAR(15) NOT NULL
 );
 
 /*======  VALUES: ABBREVIATED WORDS OF THE GENRES (6 letters or less?) ======*/
-INSERT INTO tbl_genre
-	(genre_type)
+INSERT INTO GENRE
+	(genreType)
 	VALUES
 	('FPS'),
 	('SRPG'),
@@ -78,15 +78,15 @@ INSERT INTO tbl_genre
 
 /*======  CREATE ESRB RATING TABLE ID(300) ======*/
 
-CREATE TABLE tbl_esrb (
-	esrb_id INT PRIMARY KEY NOT NULL IDENTITY (300,10),
-	esrb_rating VARCHAR(5) NOT NULL
+CREATE TABLE ESRB (
+	esrbID INT PRIMARY KEY NOT NULL IDENTITY (300,10),
+	esrbRating VARCHAR(5) NOT NULL
 );
 
 	/*======  VALUES: eC E E+10 T M Ao ======*/
 
-INSERT INTO tbl_esrb
-	(esrb_rating)
+INSERT INTO ESRB
+	(esrbRating)
 	VALUES
 	('eC'),
 	('E'),
@@ -98,32 +98,112 @@ INSERT INTO tbl_esrb
 
 /*======  CREATE GAME INFORMER SCORE TABLE ID(400) ======*/
 
+CREATE TABLE GISCORE (
+	giScoreID INT PRIMARY KEY NOT NULL IDENTITY (400,1),
+	giGameScore VARCHAR(10) NOT NULL
+);
+
 	/*======  VALUES: 1/10 - 10/10 ======*/
+
+INSERT INTO GISCORE
+	(giGameScore)
+	VALUES
+	('1/10'),
+	('2/10'),
+	('3/10'),
+	('4/10'),
+	('5/10'),
+	('6/10'),
+	('7/10'),
+	('8/10'),
+	('9/10'),
+	('10/10')
+;
 
 /*======  CREATE FAMILY SCORE TABLE ID(500) 10/10 SCALE ======*/
 
+CREATE TABLE PERSONAL_SCORE(
+	perScoreID INT PRIMARY KEY NOT NULL IDENTITY (500,1),
+	perScore VARCHAR(10) NOT NULL
+);
+
 	/*======  VALUES: 1/10 - 10/10 ======*/
 
+INSERT INTO PERSONAL_SCORE
+	(perScore)
+	VALUES
+	('1/10'),
+	('2/10'),
+	('3/10'),
+	('4/10'),
+	('5/10'),
+	('6/10'),
+	('7/10'),
+	('8/10'),
+	('9/10'),
+	('10/10')
+;
+
+
 /*======  CREATE PUBLISHER TABLE ID(600) ======*/
+CREATE TABLE PUBLISHER (
+	pubID INT PRIMARY KEY NOT NULL IDENTITY(600,1),
+	pubName VARCHAR(30) NOT NULL,
+	pubCountryOrigin VARCHAR(30) NOT NULL,
+
+);
 
 	/*======  VALUES: SONY, SEGA, ATLUS, ETC. ======*/
 
+INSERT INTO PUBLISHER
+	(pubName)
+	VALUES
+	('Sega'),
+	('Atlus'),
+	('Nintendo'),
+	('Microsoft'),
+	('Sony')
+;
+
 /*======  CREATE DEVELOPER TABLE ID(700) ======*/
+CREATE TABLE DEVELOPER (
+	devID INT PRIMARY KEY NOT NULL IDENTITY(700,1),
+	devName VARCHAR(30) NOT NULL,
+);
 
 	/*======  VALUES: i.e. INSOMNIAC, NINTENDO, NAUGHTY DOG, ETC. ======*/
 
+	--ASSIGNMENT CHALLENGE: 'At least 10 developers in DEVELOPER table
+
+INSERT INTO DEVELOPER
+	(devName)
+	VALUES
+	('Insomniac'), --1
+	('Nintendo'), --2, 2 developers
+	('Naughty Dog'), --3
+	('Activision'), --4
+	('Ubisoft'), --5
+	('THQ'), --6
+	('MTV Games'), --7
+	('Atari'), --8
+	('Sega'), --9
+	('SNK'), --10, 10 Developers, Ah, Ah Ah...
+	('D3')
+;
+
 /*======  FOREIGN KEYED TABLE WITH ALL THE TABLES LINKED ABOVE ======*/
 
-CREATE TABLE tbl_titles (
-	title_id INT PRIMARY KEY not null IDENTITY (1,1),
-	title_game varchar(50),
-	title_mfg 
-	title_console
-	title_genre
-	title_esrb
-	title_gi_score
-	title_pub
-	title_dev
+CREATE TABLE GAME (
+	titleID INT PRIMARY KEY not null IDENTITY (1,1),
+	titleGame varchar(50) NOT NULL,
+	gameMfr INT NOT NULL CONSTRAINT fkGameMfr FOREIGN KEY REFERENCES MANUFACTURER(mfrID),
+	gameConsole INT NOT NULL CONSTRAINT fkGameConsole FOREIGN KEY REFERENCES CONSOLE(consoleID),
+	gameGenre INT NOT NULL CONSTRAINT fkGameGenre FOREIGN KEY REFERENCES GENRE(genreID),
+	gameEsrb INT NOT NULL CONSTRAINT fkGameEsrb FOREIGN KEY REFERENCES ESRB(esrbID),
+	gameGIScore INT NOT NULL CONSTRAINT fkGameGIScore FOREIGN KEY REFERENCES GISCORE(giScoreID),
+	gamePerScore INT NOT NULL CONSTRAINT fkGamePerScore FOREIGN KEY REFERENCES PERSONAL_SCORE(perScoreID),
+	gamePub INT NOT NULL CONSTRAINT fkGamePub FOREIGN KEY REFERENCES PUBLISHER(pubID),
+	gameDev INT NOT NULL CONSTRAINT fkGameDev FOREIGN KEY REFERENCES DEVELOPER(devID)
 	
 );
 
