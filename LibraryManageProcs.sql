@@ -1,0 +1,10 @@
+
+
+
+CREATE PROC CopiesOfKirbyInPhoenix
+AS
+SELECT OWNER_BRANCH.ownerName, COPIES.gameTitle, COPIES.numCopies FROM OWNER_BRANCH
+INNER JOIN COPIES ON OWNER_BRANCH.ownerID = COPIES.ownerID
+WHERE COPIES.gameTitle = 'Kirby''s Epic Yarn'
+GO;
+

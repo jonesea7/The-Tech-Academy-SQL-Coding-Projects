@@ -1,4 +1,4 @@
- CREATE DATABASE VideoGameLibraryMa;
+CREATE DATABASE dbLibrary
  
  --Welcome to my personal gaming library.
  --You will find several comments to indicate the challenges set forth by the assignment
@@ -6,7 +6,7 @@
  --I've added more tables than required that are just for my enjoyment.
 
 /* ======= CREATE A BRANCH/OWNER TABLE =======*/
-USE VideoGameLibraryMa;
+USE dbLibrary;
 
 CREATE TABLE OWNER_BRANCH (
 	ownerID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
@@ -32,9 +32,6 @@ INSERT INTO OWNER_BRANCH
 	('Palius', '666 Oh Brother Drive'), --**
 	('Paris', '0 Microsoft Lane') --**
 ;
-	
-SELECT * FROM OWNER_BRANCH;
-
 
 /* ====== BORROWER TABLE ===== */
 --COLUMNS borrowerID, borrowerName, borrowerAddress, borrowerPhone
@@ -82,8 +79,6 @@ INSERT INTO BORROWER
 	('Thomas Brady','6 Rings Drive','313-555-3999')
 ;
 
-SELECT * FROM BORROWER;
-
 /*======  CREATE MANUFACTURER TABLE ID(100)======*/
 
 CREATE TABLE MANUFACTURER (
@@ -100,7 +95,6 @@ INSERT INTO MANUFACTURER
 	('Sega')
 ;
 
-SELECT * FROM MANUFACTURER;
 /*======  CREATE CONSOLE TABLE ID(200)======*/
 
 CREATE TABLE CONSOLE(
@@ -135,8 +129,6 @@ INSERT INTO CONSOLE
 	(103, 'saturn'),
 	(103, 'dreamcast')
 ;
-
-SELECT * FROM CONSOLE;
 
 /*======  CREATE GENRE TABLE ID (300) ======*/
 
@@ -185,59 +177,6 @@ INSERT INTO ESRB
 	('Ao')
 ;
 
-SELECT * FROM ESRB;
-/*======  CREATE GAME INFORMER SCORE TABLE ID(1,1) ======*/
-
-CREATE TABLE GISCORE (
-	giScoreID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
-	giGameScore VARCHAR(10) NOT NULL
-);
-
-	/*======  VALUES: 1/10 - 10/10 ======*/
-
-INSERT INTO GISCORE
-	(giGameScore)
-	VALUES
-	('N/A'),
-	('2/10'),
-	('3/10'),
-	('4/10'),
-	('5/10'),
-	('6/10'),
-	('7/10'),
-	('8/10'),
-	('9/10'),
-	('10/10')
-;
-
-
-SELECT * FROM GISCORE;
-/*======  CREATE FAMILY SCORE TABLE ID(1,1) 10/10 SCALE ======*/
-
-CREATE TABLE PERSONAL_SCORE(
-	perScoreID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
-	perScore VARCHAR(10) NOT NULL
-);
-
-	/*======  VALUES: 1/10 - 10/10 ======*/
-
-INSERT INTO PERSONAL_SCORE
-	(perScore)
-	VALUES
-	('1/10'),
-	('2/10'),
-	('3/10'),
-	('4/10'),
-	('5/10'),
-	('6/10'),
-	('7/10'),
-	('8/10'),
-	('9/10'),
-	('10/10')
-;
-
-SELECT * FROM PERSONAL_SCORE;
-
 /*======  CREATE PUBLISHER TABLE ID(500) ======*/
 
 CREATE TABLE PUBLISHER (
@@ -246,6 +185,7 @@ CREATE TABLE PUBLISHER (
 	pubCountryOrigin VARCHAR(30) NOT NULL,
 
 );
+
 
 	/*======  VALUES: SONY, SEGA, ATLUS, ETC. ======*/
 
@@ -270,9 +210,8 @@ INSERT INTO PUBLISHER
 	
 ;
 
-SELECT * FROM PUBLISHER;
 
-/*======  CREATE DEVELOPER TABLE ID(700) ======*/
+/*======  CREATE DEVELOPER TABLE ID(600) ======*/
 CREATE TABLE DEVELOPER (
 	devID INT PRIMARY KEY NOT NULL IDENTITY(600,1),
 	devName VARCHAR(30) NOT NULL
@@ -314,27 +253,72 @@ INSERT INTO DEVELOPER
 	('Avalanche')
 ;
 
-SELECT * FROM DEVELOPER;
+/*======  CREATE GAME INFORMER SCORE TABLE ID(1,1) ======*/
 
-/*======  FOREIGN KEYED TABLE WITH ALL THE TABLES LINKED ABOVE ======*/
+CREATE TABLE GISCORE (
+	giScoreID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
+	giGameScore VARCHAR(10) NOT NULL
+);
+
+	/*======  VALUES: 1/10 - 10/10 ======*/
+
+INSERT INTO GISCORE
+	(giGameScore)
+	VALUES
+	('N/A'),
+	('2/10'),
+	('3/10'),
+	('4/10'),
+	('5/10'),
+	('6/10'),
+	('7/10'),
+	('8/10'),
+	('9/10'),
+	('10/10')
+;
+
+/*======  CREATE FAMILY SCORE TABLE ID(1,1) 10/10 SCALE ======*/
+
+CREATE TABLE PERSONAL_SCORE(
+	perScoreID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
+	perScore VARCHAR(10) NOT NULL
+);
+
+	/*======  VALUES: 1/10 - 10/10 ======*/
+
+INSERT INTO PERSONAL_SCORE
+	(perScore)
+	VALUES
+	('1/10'),
+	('2/10'),
+	('3/10'),
+	('4/10'),
+	('5/10'),
+	('6/10'),
+	('7/10'),
+	('8/10'),
+	('9/10'),
+	('10/10')
+;
+
 
 CREATE TABLE GAME (
-	gameID INT PRIMARY KEY not null IDENTITY (1,1),
-	gameTitle varchar(30) NOT NULL,
-	gameMfr INT NOT NULL CONSTRAINT fkGameMfr FOREIGN KEY REFERENCES MANUFACTURER(mfrID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gameConsole INT NOT NULL CONSTRAINT fkGameConsole FOREIGN KEY REFERENCES CONSOLE(consoleID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gameGenre INT NOT NULL CONSTRAINT fkGameGenre FOREIGN KEY REFERENCES GENRE(genreID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gameEsrb INT NOT NULL CONSTRAINT fkGameEsrb FOREIGN KEY REFERENCES ESRB(esrbID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gameGIScore INT NOT NULL CONSTRAINT fkGameGIScore FOREIGN KEY REFERENCES GISCORE(giScoreID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gamePerScore INT NOT NULL CONSTRAINT fkGamePerScore FOREIGN KEY REFERENCES PERSONAL_SCORE(perScoreID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gamePub INT NOT NULL CONSTRAINT fkGamePub FOREIGN KEY REFERENCES PUBLISHER(pubID) ON UPDATE CASCADE ON DELETE CASCADE,
-	gameDev INT NOT NULL CONSTRAINT fkGameDev FOREIGN KEY REFERENCES DEVELOPER(devID) ON UPDATE CASCADE ON DELETE CASCADE
+	gameID INT  not null PRIMARY KEY IDENTITY (1,1),
+	gameTitle VARCHAR(30) NOT NULL,
+	gameMfr INT NOT NULL CONSTRAINT fkGameMfr FOREIGN KEY REFERENCES MANUFACTURER(mfrID),
+	gameConsole INT NOT NULL CONSTRAINT fkGameConsole FOREIGN KEY REFERENCES CONSOLE(consoleID),
+	gameGenre INT NOT NULL CONSTRAINT fkGameGenre FOREIGN KEY REFERENCES GENRE(genreID),
+	gameEsrb INT NOT NULL CONSTRAINT fkGameEsrb FOREIGN KEY REFERENCES ESRB(esrbID),
+	gameGIScore INT NOT NULL CONSTRAINT fkGameGIScore FOREIGN KEY REFERENCES GISCORE(giScoreID),
+	gamePerScore INT NOT NULL CONSTRAINT fkGamePerScore FOREIGN KEY REFERENCES PERSONAL_SCORE(perScoreID),
+	gamePub INT NOT NULL CONSTRAINT fkGamePub FOREIGN KEY REFERENCES PUBLISHER(pubID), 
+	gameDev INT NOT NULL CONSTRAINT fkGameDev FOREIGN KEY REFERENCES DEVELOPER(devID)
 );
 	
-	/* ======= INSERT VALUES FOR GAMES TABLE ====== */
+	/* ======= INSERT VALUES FOR GAMES TABLE ====== */ 
 
 	--CHALLENGE: at least 20 Games in the GAME table.
-
+	
 INSERT INTO GAME
 	(gameTitle, gameMfr,
 	gameConsole,gameGenre,
@@ -350,11 +334,11 @@ INSERT INTO GAME
 	('Wii Sports Resort', 100, 204, 304, 410, 7, 10, 502, 601), --100, 502, 601 is Nintendo
 	('All-Stars BR', 102, 212, 305, 430, 7, 8, 504, 614),
 	('Sonic Generations', 102, 212, 307, 410, 6, 10, 500, 608),
-	('Smash Bros. Ult.', 100, 206, 305, 420, 9, 10, 502, 615),
+	( 'Smash Bros. Ult.', 100, 206, 305, 420, 9, 10, 502, 615),
 	('J-Stars Vic', 102, 212, 305, 430, 1, 7, 507, 616),
 	('Metal Gear Solid V', 102, 212, 308, 440, 9, 7, 508, 611),
 	('Zone of the Enders', 101, 208, 308, 430, 1, 7, 508, 611),
-	('RedSteel', 100, 204, 300, 440, 7, 6, 509, 604),
+	( 'RedSteel', 100, 204, 300, 440, 7, 6, 509, 604),
 	('Wario Land', 100, 204, 307, 410, 7, 7, 502, 617),
 	('WiiPlay', 100, 204, 304, 410, 5, 5, 502, 601),
 	('Metroid: OM', 100, 204, 309, 430, 6, 7, 502, 618),
@@ -384,15 +368,16 @@ INSERT INTO GAME
 	('Smite', 101, 208, 309, 410, 8, 7, 514, 625)
 ;
 
-SELECT * FROM GAME;
-
 /* ======= CREATE A COPIES TABLE =======*/
 --COLUMNS gameTitle fk to GAME(gameTitle) , ownerID fk to OWNER_BRANCH(ownerID), numCopies
 
 		--NOTE-TO-SELF: if you alter a table after you have executed it, you will either have to DROP or ALTER the table in order for changes to take place
+
+
 CREATE TABLE COPIES (
-	gameID INT CONSTRAINT fkCopiesGameID FOREIGN KEY REFERENCES GAME(gameID) ON UPDATE CASCADE ON DELETE CASCADE,
-	ownerID INT NOT NULL CONSTRAINT fkCopiesOwnerID FOREIGN KEY REFERENCES OWNER_BRANCH(ownerID),
+	gameID INT NOT NULL CONSTRAINT fkCopiesGameID FOREIGN KEY REFERENCES GAME(gameID) ON UPDATE CASCADE ON DELETE CASCADE,
+	gameTitle VARCHAR(30) NOT NULL,
+	ownerID INT NOT NULL CONSTRAINT fkCopiesOwnerID FOREIGN KEY REFERENCES OWNER_BRANCH(ownerID) ON UPDATE CASCADE ON DELETE CASCADE,
 	numCopies INT NOT NULL,
 );
 	/* ======= INSERT VALUES FOR COPIES TABLE =======*/
@@ -400,62 +385,61 @@ CREATE TABLE COPIES (
 	--CHALLENGE: "Kirby's Epic Yarn" in "Phoenix" Branch
 	--CHALLENGE: each owner/branch has a least 10 GAME titles, and two copeis of each
 	--CHALLENGE: two games developed by HIDEO KOJIMA in EDMUND owner/branch
-
+	select * from loans
 INSERT INTO COPIES
-	(gameTitle, ownerID, numCopies)
+	(gameTitle, gameID, ownerID, numCopies)
 	VALUES
-	('Kirbys Epic Yarn', 1, 2), --** OWNER:PHOENIX TITLE:1 COPIES: 2
-	('Spider-Man:WOS', 1, 200), --** OWNER:PHOENIX TITLE:2 COPIES: 2
-	('FlingSmash', 1, 2), --** OWNER:PHOENIX TITLE:3 COPIES: 2
-	('Transformers:ROTF', 1, 2), --** OWNER:PHOENIX TITLE:4 COPIES: 2
-	('Drawn To Life', 1, 2), --** OWNER:PHOENIX TITLE:5 COPIES: 2
-	('Wii Sports Resort', 1, 200), --** OWNER:PHOENIX TITLE:6 COPIES: 2
-	('All-Stars BR', 1, 2), --** OWNER:PHOENIX TITLE:7 COPIES: 2
-	('Sonic Generations', 1, 200), --** OWNER:PHOENIX TITLE:8 COPIES: 2
-	('Smash Bros. Ult.', 1, 200), --** OWNER:PHOENIX TITLE:9 COPIES: 2
-	('J-Stars Vic', 1, 2), --** OWNER:PHOENIX TITLE:10 COPIES: 2
-	('Metal Gear Solid V', 2, 200), --** OWNER:EDMUND TITLE:1 COPIES: 2 DEVELOPER:HIDEO KOJIMA 1
-	('Zone of the Enders', 2, 2), --** OWNER:EDMUND TITLE:2 COPIES: 2 DEV: HIDEO KOJIMA 2
-	('RedSteel', 2, 2), --** OWNER:EDMUND TITLE:3 COPIES: 2
-	('Wario Land', 2, 2), --** OWNER:EDMUND TITLE:4 COPIES: 2
-	('WiiPlay', 2, 2), --** OWNER:EDMUND TITLE:5 COPIES: 2
-	('Metroid: OM', 2, 2), --** OWNER:EDMUND TITLE:6 COPIES: 2
-	('uDraw Studio', 2, 2), --** OWNER:EDMUND TITLE:7 COPIES: 2
-	('Ghost Squad', 2, 2), --** OWNER:EDMUND TITLE:8 COPIES: 2
-	('SNK Arc Clas V.1', 2, 2), --** OWNER:EDMUND TITLE:9 COPIES: 2
-	('ESV: Skyrim', 2, 200), --** OWNER:EDMUND TITLE:10 COPIES: 2
-	('Avatar: LA', 3, 2), --** OWNER:PALIUS TITLE:1 COPIES: 2
-	('SpongeBob HeroPants', 3, 200), --** OWNER:PALIUS TITLE:2 COPIES: 2
-	('Project Runway', 3, 2), --** OWNER:PALIUS TITLE:3 COPIES: 2
-	('Wii Fit', 3, 2), --** OWNER:PALIUS TITLE:4 COPIES: 2
-	('Rockband 3', 3, 13), --** OWNER:PALIUS TITLE:5 COPIES: 2
-	('Mario Bros. Wii', 3, 200), --** OWNER:PALIUS TITLE:6 COPIES: 2
-	('LEGO Dimensions', 3, 2), --** OWNER:PALIUS TITLE:7 COPIES: 2
-	('Disney Infinity 2.0', 3, 2), --** OWNER:PALIUS TITLE:8 COPIES: 2
-	('AMF Bowling', 3, 200), --** OWNER:PALIUS TITLE:9 COPIES: 2
-	('LEGO Star Wars FA', 3, 2), --** OWNER:PALIUS TITLE:10 COPIES: 2
-	('Divinity II', 4, 2), --** OWNER:PARIS TITLE:1 COPIES: 2
-	('XCOM', 4, 2), --** OWNER:PARIS TITLE:2 COPIES: 2
-	('Injustice II', 4, 200), --** OWNER:PARIS TITLE:3 COPIES: 2
-	('Vampyr', 4, 2), --** OWNER:PARIS TITLE:4 COPIES: 2
-	('Mortal Kombat 11', 4, 200), --** OWNER:PARIS TITLE:5 COPIES: 2
-	('Dragonball Budokai 3', 4, 2), --** OWNER:PARIS TITLE:6 COPIES: 2
-	('Naruto', 4, 2), --** OWNER:PARIS TITLE:7 COPIES: 2
-	('Vampire: TM', 4, 2), --** OWNER:PARIS TITLE:8 COPIES: 2
-	('Halo 3', 4, 200), --** OWNER:PARIS TITLE:9 COPIES: 2
-	('Smite', 4, 2) --** OWNER:PARIS TITLE:10 COPIES: 2
+	('Kirby''s Epic Yarn', 1, 1, 2), --** OWNER:PHOENIX TITLE:1 COPIES: 2
+	('Spider-Man:WOS',2, 1, 200), --** OWNER:PHOENIX TITLE:2 COPIES: 2
+	('FlingSmash',3, 1, 2), --** OWNER:PHOENIX TITLE:3 COPIES: 2
+	('Transformers:ROTF', 4, 1, 2), --** OWNER:PHOENIX TITLE:4 COPIES: 2
+	('Drawn To Life', 5, 1, 2), --** OWNER:PHOENIX TITLE:5 COPIES: 2
+	('Wii Sports Resort', 6, 1, 200), --** OWNER:PHOENIX TITLE:6 COPIES: 2
+	('All-Stars BR', 7, 1, 2), --** OWNER:PHOENIX TITLE:7 COPIES: 2
+	('Sonic Generations', 8, 1, 200), --** OWNER:PHOENIX TITLE:8 COPIES: 2
+	( 'Smash Bros. Ult.', 9, 1, 200), --** OWNER:PHOENIX TITLE:9 COPIES: 2
+	('J-Stars Vic', 10, 1, 2), --** OWNER:PHOENIX TITLE:10 COPIES: 2
+	('Metal Gear Solid V', 11, 2, 200), --** OWNER:EDMUND TITLE:1 COPIES: 2 DEVELOPER:HIDEO KOJIMA 1
+	('Zone of the Enders', 12, 2, 2), --** OWNER:EDMUND TITLE:2 COPIES: 2 DEV: HIDEO KOJIMA 2
+	('RedSteel', 13, 2, 2), --** OWNER:EDMUND TITLE:3 COPIES: 2
+	('Wario Land', 14, 2, 2), --** OWNER:EDMUND TITLE:4 COPIES: 2
+	('WiiPlay', 15, 2, 2), --** OWNER:EDMUND TITLE:5 COPIES: 2
+	('Metroid: OM', 16, 2, 2), --** OWNER:EDMUND TITLE:6 COPIES: 2
+	('uDraw Studio', 17, 2, 2), --** OWNER:EDMUND TITLE:7 COPIES: 2
+	('Ghost Squad', 18, 2, 2), --** OWNER:EDMUND TITLE:8 COPIES: 2
+	('SNK Arc Clas V.1', 19, 2, 2), --** OWNER:EDMUND TITLE:9 COPIES: 2
+	('ESV: Skyrim', 20, 2, 200), --** OWNER:EDMUND TITLE:10 COPIES: 2
+	('Avatar: LA', 21, 3, 2), --** OWNER:PALIUS TITLE:1 COPIES: 2
+	('SpongeBob HeroPants', 22, 3, 200), --** OWNER:PALIUS TITLE:2 COPIES: 2
+	('Project Runway', 23, 3, 2), --** OWNER:PALIUS TITLE:3 COPIES: 2
+	('Wii Fit', 24, 3, 2), --** OWNER:PALIUS TITLE:4 COPIES: 2
+	('Rockband 3', 25, 3, 13), --** OWNER:PALIUS TITLE:5 COPIES: 2
+	('Mario Bros. Wii', 26, 3, 200), --** OWNER:PALIUS TITLE:6 COPIES: 2
+	('LEGO Dimensions', 27, 3, 2), --** OWNER:PALIUS TITLE:7 COPIES: 2
+	('Disney Infinity 2.0', 28, 3, 2), --** OWNER:PALIUS TITLE:8 COPIES: 2
+	('AMF Bowling', 29, 3, 200), --** OWNER:PALIUS TITLE:9 COPIES: 2
+	('LEGO Star Wars FA', 30, 3, 2), --** OWNER:PALIUS TITLE:10 COPIES: 2
+	('Divinity II', 31, 4, 2), --** OWNER:PARIS TITLE:1 COPIES: 2
+	('XCOM', 32, 4, 2), --** OWNER:PARIS TITLE:2 COPIES: 2
+	('Injustice II', 33, 4, 200), --** OWNER:PARIS TITLE:3 COPIES: 2
+	('Vampyr', 34, 4, 2), --** OWNER:PARIS TITLE:4 COPIES: 2
+	('Mortal Kombat 11', 35, 4, 200), --** OWNER:PARIS TITLE:5 COPIES: 2
+	('Dragonball Budokai 3', 36, 4, 2), --** OWNER:PARIS TITLE:6 COPIES: 2
+	('Naruto', 37, 4, 2), --** OWNER:PARIS TITLE:7 COPIES: 2
+	('Vampire: TM', 38, 4, 2), --** OWNER:PARIS TITLE:8 COPIES: 2
+	('Halo 3', 39, 4, 200), --** OWNER:PARIS TITLE:9 COPIES: 2
+	('Smite', 40, 4, 2) --** OWNER:PARIS TITLE:10 COPIES: 2
 ;
-
-SELECT * FROM COPIES;
 
 /* ======= CREATE A LOANS TABLE =======*/
 
 	-- COLUMNS gameTitle fk to GAME(gameTitle), ownerID, borrowerID, dateOut, dateDue
-
+	
 CREATE TABLE LOANS (
-	gameID INT CONSTRAINT fkLoansGameID FOREIGN KEY REFERENCES GAME(gameID) ON UPDATE CASCADE ON DELETE CASCADE,
-	ownerID INT NOT NULL CONSTRAINT fkCopiesOwnerID FOREIGN KEY REFERENCES OWNER_BRANCH(ownerID),
-	borrowerID INT NOT NULL CONSTRAINT fkCopiesBorrowerID FOREIGN KEY REFERENCES BORROWER(borrowerID),
+	gameID INT NOT NULL CONSTRAINT fkLoansGameID FOREIGN KEY REFERENCES GAME(gameID) ON UPDATE CASCADE ON DELETE CASCADE,
+	gameTitle VARCHAR(30) NOT NULL,
+	ownerID INT NOT NULL CONSTRAINT fkLoansOwnerID FOREIGN KEY REFERENCES OWNER_BRANCH(ownerID),
+	borrowerID INT NOT NULL CONSTRAINT fkLoansBorrowerID FOREIGN KEY REFERENCES BORROWER(borrowerID),
 	dateOut DATE NOT NULL,
 	dateDue DATE NOT NULL
 );
@@ -469,73 +453,59 @@ SELECT * FROM LOANS;
 
 
 INSERT INTO LOANS
-	(gameTitle, ownerID, borrowerID, dateOut, dateDue)
+	(gameID, gameTitle, ownerID, borrowerID, dateOut, dateDue)
 	VALUES
-	('Mortal Kombat 11', 4, 7,  '2019-06-11', '2019-07-01'), --** 1st BORROWER #7: 1/5  games borrowered
-	('XCOM', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 2/5  games borrowered
-	('Divinity II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 3/5  games borrowered
-	('Injustice II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 4/5  games borrowered
-	('Kirby''s Epic Yarn', 1, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #4: 5/5  games borrowered
-	('Sonic Generations', 1, 4,  '2019-06-06', '2019-06-26'), --** 2nd BORROWER #4: 1/5  games borrowered
-	('Smash Brothers Ult', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 2/5  games borrowered
-	('FlingSmash', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 3/5  games borrowered
-	('Transformers:ROTF', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 4/5  games borrowered
-	('Kirby''s Epic Yarn', 1, 2,  '2019-06-05', '2019-06-25'), --** BORROWER #4: 5/5  games borrowered
-	('Spider-Man:WOS', 1, 2,  '2019-06-05', '2019-06-25'),
-	('Smash Bros. Ult.', 1, 2,  '2019-06-05', '2019-06-25'),
-	('Spider-Man:WOS', 1, 3,  '2019-06-05', '2019-06-25'),
-	('Spider-Man:WOS', 1, 3,  '2019-06-05', '2019-06-25'),
-	('Smash Bros. Ult.', 1, 3,  '2019-06-05', '2019-06-25'),
-	('Spider-Man:WOS', 1, 6,  '2019-06-05', '2019-06-25'),
-	('Spider-Man:WOS', 1, 6,  '2019-06-05', '2019-06-25'),
-	('Smash Bros. Ult.', 1, 6,  '2019-06-05', '2019-06-25'),
-	('ESV: Skyrim', 2, 6,  '2019-06-05', '2019-06-25'),
-	('RedSteel', 2, 9,  '2019-06-04', '2019-06-24'),
-	('ESV: Skyrim', 2, 9,  '2019-06-04', '2019-06-24'),
-	('Zone of the Enders', 2, 10,  '2019-06-04', '2019-06-24'),
-	('ESV: Skyrim', 2, 10,  '2019-06-04', '2019-06-24'),
-	('Wario Land', 2, 14,  '2019-06-04', '2019-06-24'),
-	('WiiPlay', 2, 14,  '2019-06-04', '2019-06-24'),
-	('ESV: Skyrim', 2, 14,  '2019-06-04', '2019-06-24'),
-	('Wario Land', 2, 11,  '2019-06-04', '2019-06-24'),
-	('Metroid: OM', 2, 11,  '2019-06-04', '2019-06-24'),
-	('ESV: Skyrim', 2, 11,  '2019-06-04', '2019-06-24'),
-	('ESV: Skyrim', 2, 12,  '2019-06-04', '2019-06-24'),
-	('Project Runway', 3, 13,  '2019-06-04', '2019-06-24'),
-	('Wii Fit', 3, 13,  '2019-06-04', '2019-06-24'),
-	('SpongeBob HeroPants', 3, 13,  '2019-06-04', '2019-06-24'),
-	('Rockband 3', 3, 15,  '2019-06-04', '2019-06-24'),
-	('SpongeBob HeroPants', 3, 15,  '2019-06-04', '2019-06-24'),
-	('AMF Bowling', 3, 16,  '2019-06-04', '2019-06-24'),
-	('SpongeBob HeroPants', 3, 16,  '2019-06-03', '2019-06-23'),
-	('SpongeBob HeroPants', 3, 17,  '2019-06-03', '2019-06-23'),
-	('SpongeBob HeroPants', 3, 18,  '2019-06-03', '2019-06-23'),
-	('SpongeBob HeroPants', 3, 19,  '2019-06-03', '2019-06-23'),
-	('SpongeBob HeroPants', 3, 20,  '2019-06-03', '2019-06-23'),
-	('SpongeBob HeroPants', 3, 21,  '2019-06-03', '2019-06-23'),
-	('LEGO Star Wars FA', 3, 22,  '2019-06-03', '2019-06-23'),
-	('Mario Bros. Wii', 3, 22,  '2019-06-03', '2019-06-23'),
-	('SpongeBob HeroPants', 3, 22,  '2019-06-03', '2019-06-23'),
-	('Mortal Kombat 11', 4, 23,  '2019-06-03', '2019-06-23'),
-	('Vampyr', 4, 24,  '2019-06-03', '2019-06-23'),
-	('Vampire: TM', 4, 24,  '2019-06-03', '2019-06-23'),
-	('XCOM', 4, 24,  '2019-06-03', '2019-06-23'),
-	('Mortal Kombat 11', 4, 24,  '2019-06-02', '2019-06-22'),
-	('Halo 3', 4, 25,  '2019-06-02', '2019-06-22'),
-	('Mortal Kombat 11', 4, 25,  '2019-06-02', '2019-06-22')
+	(35, 'Mortal Kombat 11', 4, 7,  '2019-06-11', '2019-07-01'), --** 1st BORROWER #7: 1/5  games borrowered
+	(32, 'XCOM', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 2/5  games borrowered
+	(31, 'Divinity II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 3/5  games borrowered
+	(33, 'Injustice II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 4/5  games borrowered
+	(1, 'Kirby''s Epic Yarn', 1, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #4: 5/5  games borrowered
+	(8, 'Sonic Generations', 1, 4,  '2019-06-06', '2019-06-26'), --** 2nd BORROWER #4: 1/5  games borrowered
+	(9, 'Smash Bros. Ult.', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 2/5  games borrowered
+	(3, 'FlingSmash', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 3/5  games borrowered
+	(4, 'Transformers:ROTF', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 4/5  games borrowered
+	(1, 'Kirby''s Epic Yarn', 1, 2,  '2019-06-05', '2019-06-25'), --** BORROWER #4: 5/5  games borrowered
+	(2 ,'Spider-Man:WOS', 1, 2,  '2019-06-05', '2019-06-25'),
+	(9, 'Smash Bros. Ult.', 1, 2,  '2019-06-05', '2019-06-25'),
+	(2, 'Spider-Man:WOS', 1, 3,  '2019-06-05', '2019-06-25'),
+	(2, 'Spider-Man:WOS', 1, 3,  '2019-06-05', '2019-06-25'),
+	(9, 'Smash Bros. Ult.', 1, 3,  '2019-06-05', '2019-06-25'),
+	(2, 'Spider-Man:WOS', 1, 6,  '2019-06-05', '2019-06-25'),
+	(2, 'Spider-Man:WOS', 1, 6,  '2019-06-05', '2019-06-25'),
+	(9, 'Smash Bros. Ult.', 1, 6,  '2019-06-05', '2019-06-25'),
+	(20, 'ESV: Skyrim', 2, 6,  '2019-06-05', '2019-06-25'),
+	(13, 'RedSteel', 2, 9,  '2019-06-04', '2019-06-24'),
+	(20, 'ESV: Skyrim', 2, 9,  '2019-06-04', '2019-06-24'),
+	(12, 'Zone of the Enders', 2, 10,  '2019-06-04', '2019-06-24'),
+	(20, 'ESV: Skyrim', 2, 10,  '2019-06-04', '2019-06-24'),
+	(14, 'Wario Land', 2, 14,  '2019-06-04', '2019-06-24'),
+	(15, 'WiiPlay', 2, 14,  '2019-06-04', '2019-06-24'),
+	(20, 'ESV: Skyrim', 2, 14,  '2019-06-04', '2019-06-24'),
+	(14, 'Wario Land', 2, 11,  '2019-06-04', '2019-06-24'),
+	(16, 'Metroid: OM', 2, 11,  '2019-06-04', '2019-06-24'),
+	(20, 'ESV: Skyrim', 2, 11,  '2019-06-04', '2019-06-24'),
+	(20, 'ESV: Skyrim', 2, 12,  '2019-06-04', '2019-06-24'),
+	(23, 'Project Runway', 3, 13,  '2019-06-04', '2019-06-24'),
+	(24, 'Wii Fit', 3, 13,  '2019-06-04', '2019-06-24'),
+	(22, 'SpongeBob HeroPants', 3, 13,  '2019-06-04', '2019-06-24'),
+	(25, 'Rockband 3', 3, 15,  '2019-06-04', '2019-06-24'),
+	(22, 'SpongeBob HeroPants', 3, 15,  '2019-06-04', '2019-06-24'),
+	(29, 'AMF Bowling', 3, 16,  '2019-06-04', '2019-06-24'),
+	(22, 'SpongeBob HeroPants', 3, 16,  '2019-06-03', '2019-06-23'),
+	(22, 'SpongeBob HeroPants', 3, 17,  '2019-06-03', '2019-06-23'),
+	(22, 'SpongeBob HeroPants', 3, 18,  '2019-06-03', '2019-06-23'),
+	(22, 'SpongeBob HeroPants', 3, 19,  '2019-06-03', '2019-06-23'),
+	(22, 'SpongeBob HeroPants', 3, 20,  '2019-06-03', '2019-06-23'),
+	(22, 'SpongeBob HeroPants', 3, 21,  '2019-06-03', '2019-06-23'),
+	(30,'LEGO Star Wars FA', 3, 22,  '2019-06-03', '2019-06-23'),
+	(26,'Mario Bros. Wii', 3, 22,  '2019-06-03', '2019-06-23'),
+	(22, 'SpongeBob HeroPants', 3, 22,  '2019-06-03', '2019-06-23'),
+	(35, 'Mortal Kombat 11', 4, 23,  '2019-06-03', '2019-06-23'),
+	(34, 'Vampyr', 4, 24,  '2019-06-03', '2019-06-23'),
+	(38, 'Vampire: TM', 4, 24,  '2019-06-03', '2019-06-23'),
+	(32, 'XCOM', 4, 24,  '2019-06-03', '2019-06-23'),
+	(35, 'Mortal Kombat 11', 4, 24,  '2019-06-02', '2019-06-22'),
+	(39, 'Halo 3', 4, 25,  '2019-06-02', '2019-06-22'),
+	(35, 'Mortal Kombat 11', 4, 25,  '2019-06-02', '2019-06-22')
 ;
-
-	
-SELECT * FROM GAME;
-SELECT * FROM MANUFACTURER;
-SELECT * FROM CONSOLE;
-SELECT * FROM GENRE;
-SELECT * FROM ESRB;
-SELECT * FROM GISCORE;
-SELECT * FROM PERSONAL_SCORE;
-SELECT * FROM PUBLISHER;
-SELECT * FROM DEVELOPER;
-SELECT * FROM LOANS;
-SELECT * FROM COPIES;
-
 
