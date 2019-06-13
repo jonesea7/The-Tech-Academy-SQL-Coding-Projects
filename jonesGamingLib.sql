@@ -193,32 +193,36 @@ SELECT * FROM BORROWER;
 INSERT INTO BORROWER
 	(borrowerName, borrowerAddress, borrowerPhone)
 	VALUES
-	('Emmanuel Kant','2 Fear','313-555-1111'),
-	('Robert Kiyosaki','22 Magic','313-555-1111'),
-	('Tim Ferriss','223 Kingdom Hall','313-555-1111'),
-	('Eckhart Tolle','1 Now','313-555-1111'),
-	('Robert Greene','48 Power Lane','313-555-1111'),
-	('Zed A. Shaw','13 Hard Way','313-555-1111'),
-	('Haruki Murakami','0 Unknown Blvd.','313-555-1111'),
-	('Ayn Rand','1000 Fountainhead Dr.','313-555-1111'),
-	('George Clauson','1 Hope','313-555-1111'),
-	('H. Kojima','1 Hope','313-555-1111'),
-	('Aaron Burr','1 Hope','313-555-1111'),
-	('Larry G. Bowman Jr.','1 Hope','313-555-1111'),
-	('Alleccia Bowman','1 Hope','313-555-1111'),
-	('Freddie Mercury','1 Hope','313-555-1111'),
-	('Guy Sandvilles','1 Hope','313-555-1111'),
-	('Miles Fowler','1 Hope','313-555-1111'),
-	('Epicurus Jones','1 Hope','313-555-1111'),
-	('Aristotle Jackson','1 Hope','313-555-1111'),
-	('Epictetus Smith','1 Hope','313-555-1111'),
-	('Creflo Dollar','1 Hope','313-555-1111'),
-	('Sean Carter','1 Hope','313-555-1111'),
-	('Davis Love','1 Hope','313-555-1111'),
-	('Phineas Wunder','1 Hope','313-555-1111'),
-	('Pedro Cemen','1 Hope','313-555-1111'),
-	('Serena Williams','1 Hope','313-555-1111'),
-	('Thomas Brady','1 Hope','313-555-1111'),
+	('Emmanuel Kant','2 Fear','313-555-1222'),
+	('Robert Kiyosaki','22 Magic','313-555-1333'),
+	('Tim Ferriss','223 Kingdom Hall','313-555-1444'),
+	('Eckhart Tolle','1 Now','313-555-1555'),
+	('Robert Greene','48 Power Lane','313-555-1666'),
+	('Zed A. Shaw','13 Hard Way','313-555-1777'),
+	('Haruki Murakami','0 Unknown Blvd.','313-555-1888'),
+	('Ayn Rand','1000 Fountainhead Dr.','313-555-1999'),
+	('George Clauson','1 Rich Ave.','313-555-2111'),
+	('H. Kojima','13 Weirdville','313-555-2222'),
+	('Aaron Burr','1 Shot','313-555-2333'),
+	('Larry G. Bowman Jr.','02 Big Poppa Way','313-555-2444'),
+	('Alleccia Bowman','888 New Way','313-555-2755'),
+	('Freddie Mercury','712 Bohemia Ave.','313-555-2666'),
+	('Guy Sandvilles','434 Powder Springs','313-555-2777'),
+	('Miles Fowler','7 Green Hills Zone','313-555-2888'),
+	('Epicurus Jones','1 Greek Court','313-555-2999'),
+	('Aristotle Jackson','1 Greek Circuit','313-555-3111'),
+	('Epictetus Smith','1 Greek Path','313-555-3222'),
+	('Creflo Dollar','7 Lucky Way','313-555-3333'),
+	('Sean Carter','909 Queens Blvd.','313-555-3444'),
+	('Davis Love','6 On Par Dr.','313-555-3555'),
+	('Phineas Wunder','34 Great Vacation','313-555-3666'),
+	('Pedro Cemen','12941 Syracuse','313-839-9205'),
+	('Serena Williams','700 Winning Way','313-555-3888'),
+	('Thomas Brady','6 Rings Drive','313-555-3999')
+;
+
+SELECT * FROM BORROWER;
+
 /*======  CREATE MANUFACTURER TABLE ID(100)======*/
 
 CREATE TABLE MANUFACTURER (
@@ -235,11 +239,12 @@ INSERT INTO MANUFACTURER
 	('Sega')
 ;
 
+SELECT * FROM MANUFACTURER;
 /*======  CREATE CONSOLE TABLE ID(200)======*/
 
 CREATE TABLE CONSOLE(
 	consoleID INT PRIMARY KEY NOT NULL IDENTITY (200,1),
-	consoleMfr INT CONSTRAINT fk_console_mfr FOREIGN KEY REFERENCES MANUFACTURER(mfrName) ON UPDATE CASCADE ON DELETE CASCADE,
+	consoleMfr INT CONSTRAINT fkConsoleMfr FOREIGN KEY REFERENCES MANUFACTURER(mfrID) ON UPDATE CASCADE ON DELETE CASCADE,
 	consoleName VARCHAR(20) NOT NULL
 );
 	/*======  INSERT SYSTEMS OVER THE YEARS AS VALUES ======*/
@@ -270,7 +275,7 @@ INSERT INTO CONSOLE
 	(103, 'dreamcast')
 ;
 
-SELECT * FROM tbl_console;
+SELECT * FROM CONSOLE;
 
 /*======  CREATE GENRE TABLE ID (200) ======*/
 
@@ -295,6 +300,7 @@ INSERT INTO GENRE
 	('RACE')
 ;
 
+SELECT * FROM GENRE;
 /*======  CREATE ESRB RATING TABLE ID(300) ======*/
 
 CREATE TABLE ESRB (
@@ -315,10 +321,11 @@ INSERT INTO ESRB
 	('Ao')
 ;
 
-/*======  CREATE GAME INFORMER SCORE TABLE ID(400) ======*/
+SELECT * FROM ESRB;
+/*======  CREATE GAME INFORMER SCORE TABLE ID(1,1) ======*/
 
 CREATE TABLE GISCORE (
-	giScoreID INT PRIMARY KEY NOT NULL IDENTITY (400,1),
+	giScoreID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
 	giGameScore VARCHAR(10) NOT NULL
 );
 
@@ -339,10 +346,12 @@ INSERT INTO GISCORE
 	('10/10')
 ;
 
-/*======  CREATE FAMILY SCORE TABLE ID(500) 10/10 SCALE ======*/
+
+SELECT * FROM GISCORE;
+/*======  CREATE FAMILY SCORE TABLE ID(1,1) 10/10 SCALE ======*/
 
 CREATE TABLE PERSONAL_SCORE(
-	perScoreID INT PRIMARY KEY NOT NULL IDENTITY (500,1),
+	perScoreID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
 	perScore VARCHAR(10) NOT NULL
 );
 
@@ -363,6 +372,7 @@ INSERT INTO PERSONAL_SCORE
 	('10/10')
 ;
 
+SELECT * FROM PERSONAL_SCORE;
 
 /*======  CREATE PUBLISHER TABLE ID(600) ======*/
 CREATE TABLE PUBLISHER (
@@ -375,20 +385,22 @@ CREATE TABLE PUBLISHER (
 	/*======  VALUES: SONY, SEGA, ATLUS, ETC. ======*/
 
 INSERT INTO PUBLISHER
-	(pubName)
+	(pubName, pubCountryOrigin)
 	VALUES
-	('Sega'),
-	('Atlus'),
-	('Nintendo'),
-	('Microsoft'),
-	('Sony')
+	('Sega', 'Japan'),
+	('Atlus', 'Japan'),
+	('Nintendo', 'Japan'),
+	('Microsoft', 'USA'),
+	('Sony', 'Japan')
 ;
+
+SELECT * FROM PUBLISHER;
 
 /*======  CREATE DEVELOPER TABLE ID(700) ======*/
 CREATE TABLE DEVELOPER (
 	devID INT PRIMARY KEY NOT NULL IDENTITY(700,1),
-	devName VARCHAR(30) NOT NULL,
-	gameID INT NOT NULL CONSTRAINT fkDevGameId FOREIGN KEY REFERENCES GAME(gameID)
+	devName VARCHAR(30) NOT NULL
+	
 );
 
 	/*======  VALUES: i.e. INSOMNIAC, NINTENDO, NAUGHTY DOG, ETC. ======*/
@@ -408,8 +420,11 @@ INSERT INTO DEVELOPER
 	('Atari'), --8
 	('Sega'), --9
 	('SNK'), --10, 10 Developers, Ah, Ah Ah...
-	('D3')
+	('D3'),
+	('Hideo Kojima')
 ;
+
+SELECT * FROM DEVELOPER;
 
 /*======  FOREIGN KEYED TABLE WITH ALL THE TABLES LINKED ABOVE ======*/
 
@@ -424,9 +439,27 @@ CREATE TABLE GAME (
 	gamePerScore INT NOT NULL CONSTRAINT fkGamePerScore FOREIGN KEY REFERENCES PERSONAL_SCORE(perScoreID),
 	gamePub INT NOT NULL CONSTRAINT fkGamePub FOREIGN KEY REFERENCES PUBLISHER(pubID),
 	gameDev INT NOT NULL CONSTRAINT fkGameDev FOREIGN KEY REFERENCES DEVELOPER(devID)
-	
 );
+	
+INSERT INTO GAME
+	(gameTitle, gameMfr,
+	gameConsole,gameGenre,
+	gameEsrb,gameGIScore,
+	gamePerScore,
+	gamePub,gameDev)
+	VALUES
+	('Kirby''s Epic Yarn',100,204,207,310,408,9,602,701);
 
+	select * from GAME
+
+SELECT * from MANUFACTURER;
+SELECT * FROM CONSOLE;
+SELECT * FROM GENRE;
+SELECT * FROM ESRB;
+SELECT * FROM GISCORE;
+SELECT * FROM PERSONAL_SCORE;
+SELECT * FROM PUBLISHER;
+SELECT * FROM DEVELOPER;
 	/* ======= INSERT VALUES FOR GAMES TABLE ====== */
 
 	--CHALLENGE: at least 20 Games in the GAME table.
