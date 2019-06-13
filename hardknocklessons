@@ -3,3 +3,11 @@
   
 2. If you execute a table and then make changes to it without either invoking the ALTER statement or DROP TABLE option your 'new' data
 will not show up in the table.
+
+
+If you try to create a foreign key remember the data you are referencing must be identical
+
+'Kirbys Epic Yarn' != 'Kirby''s Epic Yarn'
+
+I had this mistake as my first value in two tables that I was trying to reference to the GAME table. The key would not work because I was 
+not using the identical piece of data.
