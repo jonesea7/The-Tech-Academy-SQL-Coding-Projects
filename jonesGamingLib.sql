@@ -6,7 +6,7 @@
  --I've added more tables than required that are just for my enjoyment.
 
 /* ======= CREATE A BRANCH/OWNER TABLE =======*/
-
+USE jones_game_lib
 CREATE TABLE OWNER_BRANCH (
 	ownerID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
 	ownerName VARCHAR(30) NOT NULL, 
@@ -53,16 +53,16 @@ INSERT INTO COPIES
 	(gameTitle, ownerID, numCopies)
 	VALUES
 	('Kirbys Epic Yarn', 1, 2), --** OWNER:PHOENIX TITLE:1 COPIES: 2
-	('Spider-Man:WOS', 1, 2), --** OWNER:PHOENIX TITLE:2 COPIES: 2
+	('Spider-Man:WOS', 1, 200), --** OWNER:PHOENIX TITLE:2 COPIES: 2
 	('FlingSmash', 1, 2), --** OWNER:PHOENIX TITLE:3 COPIES: 2
 	('Transformers:ROTF', 1, 2), --** OWNER:PHOENIX TITLE:4 COPIES: 2
 	('Drawn To Life', 1, 2), --** OWNER:PHOENIX TITLE:5 COPIES: 2
-	('Wii Sports Resort', 1, 2), --** OWNER:PHOENIX TITLE:6 COPIES: 2
+	('Wii Sports Resort', 1, 200), --** OWNER:PHOENIX TITLE:6 COPIES: 2
 	('All-Stars BR', 1, 2), --** OWNER:PHOENIX TITLE:7 COPIES: 2
-	('Sonic Generations', 1, 2), --** OWNER:PHOENIX TITLE:8 COPIES: 2
-	('Smash Brothers Ult', 1, 2), --** OWNER:PHOENIX TITLE:9 COPIES: 2
+	('Sonic Generations', 1, 200), --** OWNER:PHOENIX TITLE:8 COPIES: 2
+	('Smash Bros. Ult.', 1, 200), --** OWNER:PHOENIX TITLE:9 COPIES: 2
 	('J-Stars Vic', 1, 2), --** OWNER:PHOENIX TITLE:10 COPIES: 2
-	('Metal Gear Solid V', 2, 2), --** OWNER:EDMUND TITLE:1 COPIES: 2 DEVELOPER:HIDEO KOJIMA 1
+	('Metal Gear Solid V', 2, 200), --** OWNER:EDMUND TITLE:1 COPIES: 2 DEVELOPER:HIDEO KOJIMA 1
 	('Zone of the Enders', 2, 2), --** OWNER:EDMUND TITLE:2 COPIES: 2 DEV: HIDEO KOJIMA 2
 	('RedSteel', 2, 2), --** OWNER:EDMUND TITLE:3 COPIES: 2
 	('Wario Land', 2, 2), --** OWNER:EDMUND TITLE:4 COPIES: 2
@@ -71,26 +71,26 @@ INSERT INTO COPIES
 	('uDraw Studio', 2, 2), --** OWNER:EDMUND TITLE:7 COPIES: 2
 	('Ghost Squad', 2, 2), --** OWNER:EDMUND TITLE:8 COPIES: 2
 	('SNK Arc Clas V.1', 2, 2), --** OWNER:EDMUND TITLE:9 COPIES: 2
-	('ESV: Skyrim', 2, 2), --** OWNER:EDMUND TITLE:10 COPIES: 2
+	('ESV: Skyrim', 2, 200), --** OWNER:EDMUND TITLE:10 COPIES: 2
 	('Avatar: LA', 3, 2), --** OWNER:PALIUS TITLE:1 COPIES: 2
-	('SpongeBob HeroPants', 3, 2), --** OWNER:PALIUS TITLE:2 COPIES: 2
+	('SpongeBob HeroPants', 3, 200), --** OWNER:PALIUS TITLE:2 COPIES: 2
 	('Project Runway', 3, 2), --** OWNER:PALIUS TITLE:3 COPIES: 2
 	('Wii Fit', 3, 2), --** OWNER:PALIUS TITLE:4 COPIES: 2
 	('Rockband 3', 3, 13), --** OWNER:PALIUS TITLE:5 COPIES: 2
 	('Mario Bros. Wii', 3, 200), --** OWNER:PALIUS TITLE:6 COPIES: 2
 	('LEGO Dimensions', 3, 2), --** OWNER:PALIUS TITLE:7 COPIES: 2
 	('Disney Infinity 2.0', 3, 2), --** OWNER:PALIUS TITLE:8 COPIES: 2
-	('AMF Bowling', 3, 2), --** OWNER:PALIUS TITLE:9 COPIES: 2
+	('AMF Bowling', 3, 200), --** OWNER:PALIUS TITLE:9 COPIES: 2
 	('LEGO Star Wars FA', 3, 2), --** OWNER:PALIUS TITLE:10 COPIES: 2
 	('Divinity II', 4, 2), --** OWNER:PARIS TITLE:1 COPIES: 2
 	('XCOM', 4, 2), --** OWNER:PARIS TITLE:2 COPIES: 2
-	('Injustice II', 4, 2), --** OWNER:PARIS TITLE:3 COPIES: 2
+	('Injustice II', 4, 200), --** OWNER:PARIS TITLE:3 COPIES: 2
 	('Vampyr', 4, 2), --** OWNER:PARIS TITLE:4 COPIES: 2
-	('Mortal Kombat 11', 4, 2), --** OWNER:PARIS TITLE:5 COPIES: 2
+	('Mortal Kombat 11', 4, 200), --** OWNER:PARIS TITLE:5 COPIES: 2
 	('Dragonball Budokai 3', 4, 2), --** OWNER:PARIS TITLE:6 COPIES: 2
 	('Naruto', 4, 2), --** OWNER:PARIS TITLE:7 COPIES: 2
 	('Vampire: TM', 4, 2), --** OWNER:PARIS TITLE:8 COPIES: 2
-	('Halo 3', 4, 2), --** OWNER:PARIS TITLE:9 COPIES: 2
+	('Halo 3', 4, 200), --** OWNER:PARIS TITLE:9 COPIES: 2
 	('Smite', 4, 2) --** OWNER:PARIS TITLE:10 COPIES: 2
 ;
 
@@ -98,11 +98,82 @@ SELECT * FROM COPIES;
 /* ======= CREATE A LOANS TABLE =======*/
 -- COLUMNS gameTitle fk to GAME(gameTitle), ownerID, borrowerID, dateOut, dateDue
 
-	/* ======= INSERT VALUES FOR LOANS TABLE =======*/
+CREATE TABLE LOANS (
+	--gameTitle VARCHAR(30) NOT NULL CONSTRAINT fkCopiesGameTitle FOREIGN KEY REFERENCES GAME(gameTitle),
+	gameTitle varchar(30) not null,
+	--ownerID INT NOT NULL CONSTRAINT fkCopiesOwnerID FOREIGN KEY REFERENCES OWNER_BRANCH(ownerID),
+	ownerID INT NOT NULL,
+	--borrowerID INT NOT NULL CONSTRAINT fkCopiesBorrowerID FOREIGN KEY REFERENCES BORROWER(borrowerID),
+	borrowerID INT NOT NULL, 
+	dateOut DATE NOT NULL,
+	dateDue DATE NOT NULL,
+);
 
+SELECT * FROM LOANS;
+	/* ======= INSERT VALUES FOR LOANS TABLE =======*/
+	
 	--CHALLENGE: 2 borrowers have more than 5 games loaned out
 	--CHALLENGE: 50+ loans
-	
+
+
+INSERT INTO LOANS
+	(gameTitle, ownerID, borrowerID, dateOut, dateDue)
+	VALUES
+	('Mortal Kombat 11', 4, 7,  '2019-06-11', '2019-07-01'), --** 1st BORROWER #7: 1/5  games borrowered
+	('XCOM', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 2/5  games borrowered
+	('Divinity II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 3/5  games borrowered
+	('Injustice II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 4/5  games borrowered
+	('Kirby''s Epic Yarn', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #4: 5/5  games borrowered
+	('Sonic Generations', 1, 4,  '2019-06-06', '2019-06-26'), --** 2nd BORROWER #4: 1/5  games borrowered
+	('Smash Brothers Ult', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 2/5  games borrowered
+	('FlingSmash', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 3/5  games borrowered
+	('Transformers:ROTF', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 4/5  games borrowered
+	('Kirby''s Epic Yarn', 1, 2,  '2019-06-05', '2019-06-25'), --** BORROWER #4: 5/5  games borrowered
+	('Spider-Man:WOS', 1, 2,  '2019-06-05', '2019-06-25'),
+	('Smash Bros. Ult.', 1, 2,  '2019-06-05', '2019-06-25'),
+	('Spider-Man:WOS', 1, 3,  '2019-06-05', '2019-06-25'),
+	('Spider-Man:WOS', 1, 3,  '2019-06-05', '2019-06-25'),
+	('Smash Bros. Ult.', 1, 3,  '2019-06-05', '2019-06-25'),
+	('Spider-Man:WOS', 1, 6,  '2019-06-05', '2019-06-25'),
+	('Spider-Man:WOS', 1, 6,  '2019-06-05', '2019-06-25'),
+	('Smash Bros. Ult.', 1, 6,  '2019-06-05', '2019-06-25'),
+	('ESV: Skyrim', 2, 6,  '2019-06-05', '2019-06-25'),
+	('RedSteel', 2, 9,  '2019-06-04', '2019-06-24'),
+	('ESV: Skyrim', 2, 9,  '2019-06-04', '2019-06-24'),
+	('Zone of the Enders', 2, 10,  '2019-06-04', '2019-06-24'),
+	('ESV: Skyrim', 2, 10,  '2019-06-04', '2019-06-24'),
+	('Wario Land', 2, 14,  '2019-06-04', '2019-06-24'),
+	('WiiPlay', 2, 14,  '2019-06-04', '2019-06-24'),
+	('ESV: Skyrim', 2, 14,  '2019-06-04', '2019-06-24'),
+	('Wario Land', 2, 11,  '2019-06-04', '2019-06-24'),
+	('Metroid: OM', 2, 11,  '2019-06-04', '2019-06-24'),
+	('ESV: Skyrim', 2, 11,  '2019-06-04', '2019-06-24'),
+	('ESV: Skyrim', 2, 12,  '2019-06-04', '2019-06-24'),
+	('Project Runway', 3, 13,  '2019-06-04', '2019-06-24'),
+	('Wii Fit', 3, 13,  '2019-06-04', '2019-06-24'),
+	('SpongeBob HeroPants', 3, 13,  '2019-06-04', '2019-06-24'),
+	('Rockband 3', 3, 15,  '2019-06-04', '2019-06-24'),
+	('SpongeBob HeroPants', 3, 15,  '2019-06-04', '2019-06-24'),
+	('AMF Bowling', 3, 16,  '2019-06-04', '2019-06-24'),
+	('SpongeBob HeroPants', 3, 16,  '2019-06-03', '2019-06-23'),
+	('SpongeBob HeroPants', 3, 17,  '2019-06-03', '2019-06-23'),
+	('SpongeBob HeroPants', 3, 18,  '2019-06-03', '2019-06-23'),
+	('SpongeBob HeroPants', 3, 19,  '2019-06-03', '2019-06-23'),
+	('SpongeBob HeroPants', 3, 20,  '2019-06-03', '2019-06-23'),
+	('SpongeBob HeroPants', 3, 21,  '2019-06-03', '2019-06-23'),
+	('LEGO Star Wars FA', 3, 22,  '2019-06-03', '2019-06-23'),
+	('Mario Bros. Wii', 3, 22,  '2019-06-03', '2019-06-23'),
+	('SpongeBob HeroPants', 3, 22,  '2019-06-03', '2019-06-23'),
+	('Mortal Kombat 11', 4, 23,  '2019-06-03', '2019-06-23'),
+	('Vampyr', 4, 24,  '2019-06-03', '2019-06-23'),
+	('Vampire: TM', 4, 24,  '2019-06-03', '2019-06-23'),
+	('XCOM', 4, 24,  '2019-06-03', '2019-06-23'),
+	('Mortal Kombat 11', 4, 24,  '2019-06-02', '2019-06-22'),
+	('Halo 3', 4, 25,  '2019-06-02', '2019-06-22'),
+	('Mortal Kombat 11', 4, 25,  '2019-06-02', '2019-06-22')
+;
+
+SELECT * FROM LOANS;
 
 /* ====== BORROWER TABLE ===== */
 --COLUMNS borrowerID, borrowerName, borrowerAddress, borrowerPhone 
