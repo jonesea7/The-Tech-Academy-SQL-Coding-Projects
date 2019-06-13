@@ -16,3 +16,5 @@ not using the identical piece of data.
 Conflict with an fk? ARE THE DATA SETS IDENTICAL
 
 'Smash Brothers Ult' != 'Smash Bros. Ult.'
+
+If you link a foreign key to the unique/primary key when you populate your tables they will show up in alphabetical order???
