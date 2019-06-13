@@ -1,0 +1,5 @@
+1. If you wish to make a foreign key know that the column you are referencing must be IDENTICAL! That's why it is usually easier to 
+  link INT fk to the ID INT PRIMARY KEY
+  
+2. If you execute a table and then make changes to it without either invoking the ALTER statement or DROP TABLE option your 'new' data
+will not show up in the table.
