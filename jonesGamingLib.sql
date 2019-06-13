@@ -123,7 +123,7 @@ INSERT INTO LOANS
 	('XCOM', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 2/5  games borrowered
 	('Divinity II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 3/5  games borrowered
 	('Injustice II', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #7: 4/5  games borrowered
-	('Kirby''s Epic Yarn', 4, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #4: 5/5  games borrowered
+	('Kirby''s Epic Yarn', 1, 7,  '2019-06-11', '2019-07-01'), --** BORROWER #4: 5/5  games borrowered
 	('Sonic Generations', 1, 4,  '2019-06-06', '2019-06-26'), --** 2nd BORROWER #4: 1/5  games borrowered
 	('Smash Brothers Ult', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 2/5  games borrowered
 	('FlingSmash', 1, 4,  '2019-06-06', '2019-06-26'), --** BORROWER #4: 3/5  games borrowered
@@ -176,13 +176,49 @@ INSERT INTO LOANS
 SELECT * FROM LOANS;
 
 /* ====== BORROWER TABLE ===== */
---COLUMNS borrowerID, borrowerName, borrowerAddress, borrowerPhone 
+--COLUMNS borrowerID, borrowerName, borrowerAddress, borrowerPhone
 
+CREATE TABLE BORROWER (
+	borrowerID INT PRIMARY KEY NOT NULL IDENTITY (1,1),
+	borrowerName VARCHAR(30) NOT NULL,
+	borrowerAddress VARCHAR(30) NOT NULL,
+	borrowerPhone VARCHAR(30) NOT NULL
+);
+
+SELECT * FROM BORROWER;
 	/* ======= INSERT VALUES BORROWER ====== */
 
 	--CHALLENGE: 8 borrowers
-	
 
+INSERT INTO BORROWER
+	(borrowerName, borrowerAddress, borrowerPhone)
+	VALUES
+	('Emmanuel Kant','2 Fear','313-555-1111'),
+	('Robert Kiyosaki','22 Magic','313-555-1111'),
+	('Tim Ferriss','223 Kingdom Hall','313-555-1111'),
+	('Eckhart Tolle','1 Now','313-555-1111'),
+	('Robert Greene','48 Power Lane','313-555-1111'),
+	('Zed A. Shaw','13 Hard Way','313-555-1111'),
+	('Haruki Murakami','0 Unknown Blvd.','313-555-1111'),
+	('Ayn Rand','1000 Fountainhead Dr.','313-555-1111'),
+	('George Clauson','1 Hope','313-555-1111'),
+	('H. Kojima','1 Hope','313-555-1111'),
+	('Aaron Burr','1 Hope','313-555-1111'),
+	('Larry G. Bowman Jr.','1 Hope','313-555-1111'),
+	('Alleccia Bowman','1 Hope','313-555-1111'),
+	('Freddie Mercury','1 Hope','313-555-1111'),
+	('Guy Sandvilles','1 Hope','313-555-1111'),
+	('Miles Fowler','1 Hope','313-555-1111'),
+	('Epicurus Jones','1 Hope','313-555-1111'),
+	('Aristotle Jackson','1 Hope','313-555-1111'),
+	('Epictetus Smith','1 Hope','313-555-1111'),
+	('Creflo Dollar','1 Hope','313-555-1111'),
+	('Sean Carter','1 Hope','313-555-1111'),
+	('Davis Love','1 Hope','313-555-1111'),
+	('Phineas Wunder','1 Hope','313-555-1111'),
+	('Pedro Cemen','1 Hope','313-555-1111'),
+	('Serena Williams','1 Hope','313-555-1111'),
+	('Thomas Brady','1 Hope','313-555-1111'),
 /*======  CREATE MANUFACTURER TABLE ID(100)======*/
 
 CREATE TABLE MANUFACTURER (
