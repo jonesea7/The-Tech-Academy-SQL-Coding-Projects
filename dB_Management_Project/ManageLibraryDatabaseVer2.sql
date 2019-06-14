@@ -1,4 +1,4 @@
-USE GameLibrary20192
+CREATE DATABASE GameLibrary2019
 
  --Welcome to my personal gaming library network.
  --You will find several comments to indicate the challenges set forth by the assignment
@@ -8,6 +8,7 @@ USE GameLibrary20192
 /* ======= CREATE A BRANCH/OWNER TABLE =======*/
 
 	--COLUMNS ownerID, ownerName, ownerAddress
+USE GameLibrary2019
 
 CREATE TABLE OWNER_BRANCH (
 	ownerID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
@@ -277,7 +278,7 @@ INSERT INTO COPIES_GAME
 	(10, 1, 12),
 	(11, 1, 12),
 	(18, 1, 12), --** 10 titles for owner1/Phoenix
-	(44, 2, 12), --**1/2 hideo kojima in edmund
+	(22, 2, 12), --**1/2 hideo kojima in edmund
 	(44, 2, 12), --** 2/2 hideo kojima in edmund
 	(11, 2, 12),
 	(15, 2, 12),
@@ -380,13 +381,11 @@ INSERT INTO LOANS_GAME
 	(13, 4, 22, '2019-06-11', '2019-06-30'),
 	(13, 4, 25, '2019-06-11', '2019-06-30'),
 	(13, 4, 24, '2019-06-11', '2019-06-30'),
-	(20, 4, 18, '2019-06-11', '2019-06-30')
+	(17, 1, 18, '2019-06-11', '2019-06-15')
 ;
 
 
-SELECT GAME.gameTitle, BORROWER.borrowerLasName, LOANS_GAME.gameID FROM LOANS_GAME 
-INNER JOIN BORROWER ON BORROWER.borrowerID = LOANS_GAME.borrowerID
-INNER JOIN GAME ON GAME.gameID = LOANS_GAME.gameID;
+
 
 
 
