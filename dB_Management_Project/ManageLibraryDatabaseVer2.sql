@@ -264,7 +264,7 @@ SELECT * FROM GAME, OWNER_BRANCH;
 	--CHALLENGE: "Kirby's Epic Yarn" in "Phoenix" Branch
 	--CHALLENGE: each owner/branch has a least 10 GAME titles, and two copies of each
 	--CHALLENGE: two games developed by HIDEO KOJIMA in EDMUND owner/branch
-
+	
 INSERT INTO COPIES_GAME
 	(gameID, ownerID, numCopies)
 	VALUES
@@ -272,19 +272,19 @@ INSERT INTO COPIES_GAME
 	(4, 1, 12),
 	(5, 1, 12),
 	(7, 1, 12),
-	(17, 1, 16), --** "Kirby's Epic Yarn" in "Phoenix" Branch
+	(16, 1, 16), --** "Kirby's Epic Yarn" in "Phoenix" Branch
 	(8, 1, 12),
 	(9, 1, 12),
 	(10, 1, 12),
 	(11, 1, 12),
 	(18, 1, 12), --** 10 titles for owner1/Phoenix
-	(22, 2, 12), --**1/2 hideo kojima in edmund
-	(44, 2, 12), --** 2/2 hideo kojima in edmund
+	(21, 2, 12), --**1/2 hideo kojima in edmund
+	(43, 2, 12), --** 2/2 hideo kojima in edmund
 	(11, 2, 12),
 	(15, 2, 12),
 	(20, 2, 12),
 	(12, 2, 12),
-	(21, 2, 12),
+	(30, 2, 12),
 	(23, 2, 12),
 	(26, 2, 12),
 	(32, 2, 12), --** 10 titles for owner2/Edmund
@@ -383,11 +383,4 @@ INSERT INTO LOANS_GAME
 	(13, 4, 24, '2019-06-11', '2019-06-30'),
 	(17, 1, 18, '2019-06-11', '2019-06-15')
 ;
-
-
-
-
-
-
-
 
