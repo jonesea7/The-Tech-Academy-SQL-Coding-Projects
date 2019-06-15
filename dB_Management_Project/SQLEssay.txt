@@ -19,6 +19,11 @@ primary is once
 foreign links here to there now
 unique says it all
 
+UNIQUE guarantees that a column is populated with unique data.
+PRIMARY has a UNIQUE CONSTRAINT within it and can be used by FOREIGN keys to have the table it is in be referenced.
+FOREIGN keys allow you reference another table because it has a data set that is IDENTICAL to a data set in the 
+	referenced table.
+
 Musical: Getting Real with My Database
 
 UNIQUE_ID: Hi my name is Unique Identifier, and I'd like to sing a song for y'all. I hope you like it.
@@ -64,11 +69,11 @@ No it's Superkey.
 
 Able to combine two unique identifying columns in a single bound.
 Superkey not only has Mary's Social Security number,
-he also has provided here with her very own hexadecimal Employee ID linked to 
+and uniquely generated hexadecimal Employee ID linked to 
 her oh so special SSN.
 
 Superkey
-Now all records are truly safe from every getting mixed up.
+She helps make everyone one of a kind indeed.
 
 
 LETTER TO PK
