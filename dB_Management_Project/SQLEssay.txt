@@ -37,7 +37,7 @@ UNIQUE_ID: Hi my name is Unique Identifier, and I'd like to sing a song for y'al
 	'Cause you make me feel
 	You make me feel
 	You make me feel like
-	A natural [key] ([key])
+	A NATURAL [key] ([key])
 
 SIMPLE KEY TRAILER
 
@@ -68,9 +68,10 @@ It's a plane,
 No it's Superkey.
 
 Able to combine two unique identifying columns in a single bound.
-Superkey not only has Mary's Social Security number,
-and uniquely generated hexadecimal Employee ID linked to 
-her oh so special SSN.
+Superkey has Mary's Social Security number,
+and uniquely generated hexadecimal Employee ID.
+
+What makes Superkey truly amazing is her ability pull these two natural keys together with her super strength.
 
 Superkey
 She helps make everyone one of a kind indeed.
