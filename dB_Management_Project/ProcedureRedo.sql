@@ -187,9 +187,20 @@ END
 
 --ANOTHER ATTEMPT
 
-SELECT	GAME.gameTitle,
-		COPIES_GAME.numCopies,
-		ISNULL(GAME.gameTitle,'N/A')
+	/* ====== WE HAVE A WINNER!!! ====== */
+CREATE PROC HideosInPhoenix
+AS
+SELECT	
+CASE	
+		WHEN GAME.gameTitle IS NULL 
+		THEN 'N/A' 
+		ELSE GAME.gameTitle 
+		END AS 'No game at this branch with those criteria.',
+CASE	
+		WHEN COPIES_GAME.numCopies IS NULL 
+		THEN 'N/A' ELSE COPIES_GAME.numCopies 
+		END AS '0 Copies'
+
 FROM	GAME
 		INNER JOIN DEVELOPER
 			ON GAME.gameDev = DEVELOPER.devId
@@ -199,4 +210,7 @@ FROM	GAME
 			ON COPIES_GAME.ownerID = OWNER_BRANCH.ownerID
 WHERE	( DEVELOPER.devName = 'Hideo Kojima'
 			AND OWNER_BRANCH.ownerName = 'Phoenix'
-);
+)
+GO;
+
+--It ain't pretty but you get the idea, if you change the owner name to Edmund it will give you a table with the results you require.
