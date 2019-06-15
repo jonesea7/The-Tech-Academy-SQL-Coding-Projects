@@ -97,4 +97,106 @@ WHERE	( DEVELOPER.devName = 'Hideo Kojima'
 
 
 CASE	WHEN GAME.gameTitle IS NULL THEN 'There are no copies of that game at this branch.'
-		
+
+
+USE GameLibrary20193
+
+DECLARE @numCopies INT
+
+SET @numCopies = (
+SELECT	GAME.gameTitle,
+		COPIES_GAME.numCopies
+FROM	GAME
+		INNER JOIN DEVELOPER
+			ON GAME.gameDev = DEVELOPER.devId
+		INNER JOIN COPIES_GAME
+			ON GAME.gameID = COPIES_GAME.gameID
+		INNER JOIN OWNER_BRANCH
+			ON COPIES_GAME.ownerID = OWNER_BRANCH.ownerID
+WHERE	( DEVELOPER.devName = 'Hideo Kojima'
+			AND OWNER_BRANCH.ownerName = 'Phoenix')
+)
+
+IF		@numCopies IS NULL 
+	BEGIN
+		PRINT 'There are no copies of his game at this branch'
+	END
+
+	/*Msg 116, Level 16, State 1, Line 120
+	Only one expression can be specified in 
+	the select list when the subquery is not introduced with EXISTS.*/
+
+	--NEXT ATTEMPT
+
+
+SELECT	
+CASE
+	WHEN GAME.gameTitle THEN 'NOTHING'
+END		AS 'Game Title',
+		COPIES_GAME.numCopies
+FROM	GAME
+		INNER JOIN DEVELOPER
+			ON GAME.gameDev = DEVELOPER.devId
+		INNER JOIN COPIES_GAME
+			ON GAME.gameID = COPIES_GAME.gameID
+		INNER JOIN OWNER_BRANCH
+			ON COPIES_GAME.ownerID = OWNER_BRANCH.ownerID
+WHERE	( DEVELOPER.devName = 'Hideo Kojima'
+			AND OWNER_BRANCH.ownerName = 'Phoenix')
+
+--EMPTY TABLE AGAIN, but the title of the column for gameTitle changed to Game Title
+
+--ANOTHER ATTEMPT
+
+
+SELECT	GAME.gameTitle,
+		COPIES_GAME.numCopies
+FROM	GAME
+		INNER JOIN DEVELOPER
+			ON GAME.gameDev = DEVELOPER.devId
+		INNER JOIN COPIES_GAME
+			ON GAME.gameID = COPIES_GAME.gameID
+		INNER JOIN OWNER_BRANCH
+			ON COPIES_GAME.ownerID = OWNER_BRANCH.ownerID
+WHERE	( DEVELOPER.devName = 'Hideo Kojima'
+			AND OWNER_BRANCH.ownerName = 'Phoenix'
+);
+
+--I CREATED A PROC WHERE IT WILL LEAVE A MESSAGE IF THE GAME TITLE IS NULL.
+
+DECLARE @GameTitle VARCHAR(30)
+
+SET @GameTitle = (
+SELECT	GAME.gameTitle
+FROM	GAME
+		INNER JOIN DEVELOPER
+			ON GAME.gameDev = DEVELOPER.devId
+		INNER JOIN COPIES_GAME
+			ON GAME.gameID = COPIES_GAME.gameID
+		INNER JOIN OWNER_BRANCH
+			ON COPIES_GAME.ownerID = OWNER_BRANCH.ownerID
+WHERE	( DEVELOPER.devName = 'Hideo Kojima'
+			AND OWNER_BRANCH.ownerName = 'Phoenix')
+)
+
+IF		@GameTitle IS NULL
+BEGIN	
+	PRINT	'This game is not at this branch'
+END
+
+
+--ANOTHER ATTEMPT
+
+SELECT	GAME.gameTitle,
+		COPIES_GAME.numCopies,
+		ISNULL(GAME.gameTitle,'N/A')
+FROM	GAME
+		INNER JOIN DEVELOPER
+			ON GAME.gameDev = DEVELOPER.devId
+		INNER JOIN COPIES_GAME
+			ON GAME.gameID = COPIES_GAME.gameID
+		INNER JOIN OWNER_BRANCH
+			ON COPIES_GAME.ownerID = OWNER_BRANCH.ownerID
+WHERE	( DEVELOPER.devName = 'Hideo Kojima'
+			AND OWNER_BRANCH.ownerName = 'Phoenix'
+);
