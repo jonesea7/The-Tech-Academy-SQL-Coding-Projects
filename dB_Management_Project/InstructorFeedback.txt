@@ -1,0 +1,12 @@
+June 14, 2019
+
+Hey Edmund,
+
+Ok cool, first thing I’ve noticed is that your loans table and copies table shouldn’t have a Game Title.  The gameID is what gives you that information.  Title on these is excessive information. Actually other than that your tables look pretty good (haven’t gotten into data here, but just the layout you have going on). Generally speaking though (there are exceptions) you’ll want to avoid multiple tables holding the same information, other than ids.
+
+As for your question, if the left and right is confusing you, don’t worry about deciphering that just yet, just use a FULL OUTER JOIN.  The other thing to be aware of is the creators of SQL were pretty nit picky.  A NULL value doesn’t have a value to ‘equal’.  You can’t equal NULL, something either IS NULL, or IS NOT NULL.  
+
+Looks like Emmanuel Kant, Robert Greene, Ayn Rand, and Thomas Brady are your people with no games borrowed.
+
+Send us an email if you have any other questions!
+-Jordan VanWyhe

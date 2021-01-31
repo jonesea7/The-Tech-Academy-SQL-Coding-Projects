@@ -1,0 +1,111 @@
+
+joke about outer and inner joins
+
+What do an outer join and a gossip have in common?
+They tell what is going on your table, my table, and our 'inner'[join] table put together.
+
+limerick about keys in sql
+
+a key is a tool that you need,
+to find lots of records with speed,
+you make a key up,
+with a key type and stuff,
+and tables are connected when f-keyed.
+
+
+haiku title: the three key types
+
+primary is once
+foreign links here to there now
+unique says it all
+
+UNIQUE guarantees that a column is populated with unique data.
+PRIMARY has a UNIQUE CONSTRAINT within it and can be used by FOREIGN keys to have the table it is in be referenced.
+FOREIGN keys allow you reference another table because it has a data set that is IDENTICAL to a data set in the 
+	referenced table.
+
+Musical: Getting Real with My Database
+
+UNIQUE_ID: Hi my name is Unique Identifier, and I'd like to sing a song for y'all. I hope you like it.
+
+	Looking out on the [row of data]
+	I used to feel so un[realistic]
+	And when I knew I had to face another [record set]
+	Lord, it made me feel so [simplistic]
+	Before the day I met you, [tuples identified me]
+	But you[r Social Security number is] the key to my [identity]
+	'Cause you make me feel
+	You make me feel
+	You make me feel like
+	A NATURAL [key] ([key])
+
+SIMPLE KEY TRAILER
+
+Coming soon to a theater near you.
+One column.
+One unique identifier.
+No long rows of data.
+This fall experience the 'simple' life.
+
+Simple Key
+A Random Database Administrator Table 
+
+SIMPLE KEY!
+Where the data IS the ID!
+
+MONOLOGUE: I didn't choose to be secondary, I created this way.
+
+col_Email: I want you to know I have been on this table for many years.
+I know how to identify the record. I have what it takes. I can uniquely identify each row.
+I have a nice column name. The only difference between me and  
+Mr. col_Student_ID is you put 'PRIMARY KEY' in your stupid little SQL code next to Mr. ID's column generation.
+That's all! I could be a primary key any day. At least I'm not alone. I got col_Roll_No living the secondary key life too.
+
+
+
+It's a bird,
+It's a plane,
+No it's Superkey.
+
+Able to combine two unique identifying columns in a single bound.
+Superkey has Mary's Social Security number,
+and uniquely generated hexadecimal Employee ID.
+
+What makes Superkey truly amazing is her ability pull these two natural keys together with her super strength.
+
+Superkey
+She helps make everyone one of a kind indeed.
+
+
+LETTER TO PK
+
+Dearest PK,
+	I'm lost without you. When you left the table I could no
+longer get to my parent's house. It's been crazy without you PK. Come
+home. There's no referential integrity without you. I just don't matter
+without you. I'm pointless if I don't have you to look to for all the big
+queries in life. Come home. We still have a huge column with your name on it.
+
+										Love Always and Referentially,
+										Foreign
+
+							P.S. All the Candidate keys are chomping at the bit
+							to hook up with me,
+							but I only have eyes for you.
+
+
+where is before the group
+having is after the group
+
+where filters records from a result before any groupings
+having filters values from a group
+
+so having clause filters what the where clause filters from the table
+
+like the old aphorism says:
+"You can't HAVE anything if you don't know WHERE it comes from."
+
+DATABASE INDEX IS A MAP THAT DIAGRAMS THE DATABASE IN A VISUAL FORMAT TO SEE ALL THE KEYS
+AND CONNECTIONS OF ALL THE TABLES IN THE DATABASE IN ONE FELL SWOOP.
+
+I POSTED THE DB INDEX ON MY WHITE BOARD TO HELP ME FINISH MY DB MANAGEMENT ASSIGNMENT.
